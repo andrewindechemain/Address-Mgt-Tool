@@ -27,14 +27,16 @@ The ReadME documents details about configuring a Python Django Project
 <!-- Badges -->
 <p>
 <h1> Description</h1>
-The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflic
+The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict
 
 <!-- Getting Started -->
 ## Getting Started
 To get a copy of the project up and running on your local machine for development and testing purposes. 
 -clone the project from Github on terminal. 
+
 <b>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</b>
--Create a virtual environment for your folder.
+
+## Create a virtual environment for your folder.
 <b>pipenv shell</b>
 
 <!-- Installation -->
