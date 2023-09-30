@@ -19,7 +19,10 @@ Align main heading to the center of the page
 
 
 <div align="left">
-<h1>Python Django Documentation</h1> The ReadME documents details about configuring a Python Django Project
+
+<h1>Python Django Documentation</h1> 
+
+The ReadME documents details about configuring a Python Django Project
 
 <!-- Badges -->
 <p>
@@ -35,7 +38,7 @@ To get a copy of the project up and running on your local machine for developmen
 <b>pipenv shell</b>
 
 <!-- Installation -->
-### :gear:<h2>Installation</h2>
+###<h2>Installation</h2>
 <b>Pipenv Install <package></b>
   <b>Pipenv Install requirements.txt</b>
 <!-- Run Locally -->
@@ -55,9 +58,9 @@ To get a copy of the project up and running on your local machine for developmen
 
 <!-- Linting the Application -->
 <h2>Linting the App</h2>
+ 1.pylint pylint_example.py.
 
-  1.pylint pylint_example.py.
-
+<br>
 ## Authors
 
-* **Andrew Indeche** - *Final work* 
+**Andrew Indeche** - *Final work* 
