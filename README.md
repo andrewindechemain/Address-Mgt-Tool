@@ -29,21 +29,21 @@ Align main heading to the center of the page
 <p>The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict</p>
 
 <!-- Getting Started -->
-## Getting Started
+<b>Getting Started</b>
 <p>To get a copy of the project up and running on your local machine for development and testing purposes.</p> 
 
 ## Clone the project from Github on terminal. 
-<p><b>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</b></p>
+<p>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
 
-## Create a virtual environment for your folder.
-<b>pipenv shell</b>
+<b>Create a virtual environment for your folder.</b>
+<p>pipenv shell</p>
 
 <!-- Installation -->
-###<h2>Installation</h2>
-<b>Pipenv Install <package></b>
-  <b>Pipenv Install requirements.txt</b>
+### <h2>Installation</h2>
+Pipenv Install <package>
+  Pipenv Install requirements.txt
 <!-- Run Locally -->
-### :running:<h2> Running Locally</h2>
+### <h2> Running Locally</h2>
 <b> docker compose up [OPTIONS] [SERVICE...]</b>
 
 <!-- Going into the project Directory/Folder -->
