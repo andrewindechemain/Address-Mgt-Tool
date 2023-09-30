@@ -41,10 +41,10 @@ Align main heading to the center of the page
 <!-- Installation -->
 ### <h2>Installation</h2>
 Pipenv Install <package>
-  Pipenv Install requirements.txt
+  <br>Pipenv Install requirements.txt
 <!-- Run Locally -->
 ### <h2> Running Locally</h2>
-<b> docker compose up [OPTIONS] [SERVICE...]</b>
+  docker compose up [OPTIONS] [SERVICE...]
 
 <!-- Going into the project Directory/Folder -->
 <h2>Go to the project directory</h2>
@@ -62,6 +62,6 @@ Pipenv Install <package>
  1.pylint pylint_example.py.
 
 <br>
-## Authors
+## <h2>Authors</h2>
 
 **Andrew Indeche** - *Final work* 
