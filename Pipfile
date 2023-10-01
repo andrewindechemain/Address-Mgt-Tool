@@ -10,6 +10,9 @@ python-dotenv = "*"
 pytest-django = "*"
 django-heroku = "*"
 drf-yasg = "*"
+python-decouple = "*"
+dj-database-url = "*"
+asgiref = "*"
 
 [dev-packages]
 pylint = "*"
