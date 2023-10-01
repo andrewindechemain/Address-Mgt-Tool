@@ -33,7 +33,7 @@ Align main heading to the center of the page
 <p>To get a copy of the project up and running on your local machine for development and testing purposes.</p> 
 
 ## Clone the project from Github on terminal. 
-<p>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
+<b><p>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p></b>
 
 <b>Create a virtual environment for your folder.</b>
 <p>pipenv shell</p>
@@ -64,4 +64,4 @@ Pipenv Install <package>
 <br>
 ## <h2>Authors</h2>
 
-**Andrew Indeche** - *Final work* 
+<b>Andrew Indeche - *Final work* </b> 
