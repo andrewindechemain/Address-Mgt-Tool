@@ -76,7 +76,6 @@ WSGI_APPLICATION = 'address_management.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
         "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.environ.get('DB_NAME'),
@@ -84,7 +83,6 @@ DATABASES = {
         "PASSWORD": os.environ.get('DB_USER_PASSWORD'),
         "HOST": os.environ.get('DB_HOST'),
         "PORT": os.environ.get('DB_PORT'),
-    }
     }
 }
 
