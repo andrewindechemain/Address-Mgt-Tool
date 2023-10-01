@@ -13,6 +13,7 @@ drf-yasg = "*"
 python-decouple = "*"
 dj-database-url = "*"
 asgiref = "*"
+gunicorn = "*"
 
 [dev-packages]
 pylint = "*"
