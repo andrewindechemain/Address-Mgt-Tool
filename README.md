@@ -39,11 +39,11 @@ Align main heading to the center of the page
 <p>pipenv shell</p>
 
 <!-- Installation -->
-### <h2>Installation</h2>
-Pipenv Install <package>
-  <br>Pipenv Install requirements.txt
+## <h2>Installation</h2>
+1.Pipenv Install <package>
+  2.Pipenv Install requirements.txt
 <!-- Run Locally -->
-### <h2> Running Locally</h2>
+## <h2> Running Locally</h2>
   docker compose up [OPTIONS] [SERVICE...]
 
 <!-- Going into the project Directory/Folder -->
