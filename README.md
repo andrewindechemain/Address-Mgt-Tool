@@ -25,25 +25,30 @@ Align main heading to the center of the page
 <p>The ReadME documents details about configuring a Python Django Project</p>
 
 <!-- Badges -->
-<h1> Description</h1>
+## <h1> Description</h1>
 <p>The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict</p>
 
 <!-- Getting Started -->
-<b>Getting Started</b>
+## <h2><b>Getting Started</b></h2>
 <p>To get a copy of the project up and running on your local machine for development and testing purposes.</p> 
 
-## Clone the project from Github on terminal. 
 <b><p>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p></b>
 
-<b>Create a virtual environment for your folder.</b>
-<p>pipenv shell</p>
+## <h3>2.Create a virtual environment for your folder.</h3>
+<b><p>pipenv shell</p></b>
 
 <!-- Installation -->
-## <h2>Installation</h2>
-1.Pipenv Install <package>
-  2.Pipenv Install requirements.txt
+## <h3>3.Installation</h3>
+<b>1.Use Pipenv Install <package> to install
+  2.else Pipenv Install requirements.txt </b>
+
+ <!-- Create .env --> 
+ ## <h3>4.Create a .env file</h3>
+    <b>1.Create a .env file on the root
+  2.add environment variables </b>
+
 <!-- Run Locally -->
-## <h2> Running Locally</h2>
+## <h3> Running Locally</h3>
   docker compose up [OPTIONS] [SERVICE...]
 
 <!-- Going into the project Directory/Folder -->
