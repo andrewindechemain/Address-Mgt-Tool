@@ -45,11 +45,16 @@ Align main heading to the center of the page
  <!-- Create .env --> 
  ## <h3>4.Create a .env file</h3>
     <b>1.Create a .env file on the root
-  2.add environment variables </b>
-
+       2.add environment variables
+       3.Use env.example to configure your env variables</b>
 <!-- Run Locally -->
 ## <h3> Running Locally</h3>
-  docker compose up [OPTIONS] [SERVICE...]
+   <b>MySQL</b>
+      1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install 
+      (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
+    <b>Docker</b>
+      1. Install docker to create a virtualized container that will be used to run the python app
+       Run docker using: <b>docker compose up [OPTIONS] [SERVICE...]</b>
 
 <!-- Going into the project Directory/Folder -->
 <h2>Go to the project directory</h2>
