@@ -82,12 +82,11 @@ WSGI_APPLICATION = 'address_management.wsgi.application'
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_USER_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('PORT')
-
+        'NAME': 'mydb',
+        'USER': 'indeche',
+        'PASSWORD': 'Omwami24*',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
 
