@@ -17,6 +17,7 @@ gunicorn = "*"
 mysql-connector-python = "*"
 pymysql = "*"
 cryptography = "*"
+django-environ = "*"
 
 [dev-packages]
 pylint = "*"
