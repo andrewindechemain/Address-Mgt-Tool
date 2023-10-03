@@ -102,4 +102,4 @@ Align main heading to the center of the page
 <br>
 
 ## <h2>Authors</h2>
-<h3>Andrew Indeche - *Final work*</h3> 
+<p style="background-color: crimson; color: #f1f1f1; font-size: 2em; font-weight: bold">Andrew Indeche - *Final work*</p> 
