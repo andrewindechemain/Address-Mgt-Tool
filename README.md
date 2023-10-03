@@ -1,12 +1,8 @@
-<!--
-The Readme file documents the project description and installation and set up instructions
--->
-<!--
-Align main heading to the center of the page
--->
+<!--The Readme file documents the project description and installation and set up instructions-->
+<!--Align main heading to the center of the page-->
 | Tool                | Description                    | Tags for tools used                                                                                               |
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| 1.Git                  | Version Control | [Version-Control];[Bitbucket]; [Repo];                                                         |
+| 1.Git                  | Version Control | [Version-Control];[Bitbucket]; [Repo];|
 | 2.Django               | Python-Based Framework| [Python]; [Production];[Development];|
 | 3.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
 | 4.PyLint/PyLance       | Linter   | [static]; [analyzer];|
