@@ -75,27 +75,31 @@ Align main heading to the center of the page
 <!-- Run Locally -->
 
 ## <h2>Running MySQL Locally</h2>
-
+<p>Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:</p>
 <ol>
-  <p>Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:</p>
   <li> MySql server for configuring server and user/DB variables</li> and 
   <li> MySql Workbench to manage database and user.</li>
   </ol>
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
 <p>Use the command below to navigate to the project folder in terminal:</p>
-  1.cd ipmgt
+  <ul>
+  <li>cd ipmgt</li>
+  </ul>
 <!-- Running Tests on the Application -->
 <h2>Running Tests</h2>
 <p>Use the commands below to carry out test on the models and app functionality.:</p>
-  1. pytest
-  2. python3 manage.py test
-
+  <ul>
+  <li>pytest</li>
+  <li>python3 manage.py test</li>
+  </ul>
 <!-- Linting the Application -->
 <h2>Linting the App</h2>
 <p>Use the command below to Lint the python syntax for typographical errors.:</p>
- 1.pylint pylint_example.py.
+<ul>
+ <li>pylint pylint_example.py.</li>
+ </ul>
 <br>
 
 ## <h2>Authors</h2>
-<h3><b>Andrew Indeche - *Final work* </b></h3> 
+<h3>Andrew Indeche - *Final work*</h3> 
