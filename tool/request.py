@@ -3,9 +3,7 @@ import ipaddress
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse, HttpResponse
-from .models import IPAddress, Customer
-
-
+from .models import IPAddress
 
 @require_http_methods(["POST"])
 @login_required

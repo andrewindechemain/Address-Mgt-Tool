@@ -76,6 +76,11 @@
   <li> MySql server for configuring server and user/DB variables</li> and 
   <li> MySql Workbench to manage database and user.</li>
   </ol>
+<p>Runing Database</p>
+<ol>
+<li> Use the command: mysql uroot -p to access database as root user </li>
+<li> change default root user password and create other users/Databases,grant permissions</li>
+</ol>
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
 <p>Use the command below to navigate to the project folder in terminal:</p>
@@ -94,6 +99,8 @@
 <p>Use the command below to Lint the python syntax for typographical errors.:</p>
 <ul>
  <li>pylint pylint_example.py.</li>
+          or
+  <li>pylint --load-plugins pylint_django --rcfile *</li>
  </ul>
 <br>
 
