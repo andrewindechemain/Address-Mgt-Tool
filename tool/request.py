@@ -45,7 +45,6 @@ def release_ip(ipAddress):
 
 def allocated_ips(IPAddress):
     ips = IPAddress.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
-
     if ips:
         return JsonResponse(list(ips), safe=False, status=200)
     else:
