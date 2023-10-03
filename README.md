@@ -73,7 +73,8 @@ Align main heading to the center of the page
        <li>Use env.example to configure your env variables</li>
        </ol>
 <!-- Run Locally -->
-<p><b>Running MySQL Locally</b></p>
+
+## <h2>Running MySQL Locally</h2>
       1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:
       (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
 <!-- Navigating to the project Directory/Folder -->
