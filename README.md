@@ -9,7 +9,7 @@ Align main heading to the center of the page
 | 1.Git                  | Version Control | [Version-Control];[Bitbucket]; [Repo];                                                         |
 | 2.Django               | Python-Based Framework| [Python]; [Production];[Development];|
 | 3.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
-| 4.PyLint               | Linter   | [static]; [analyzer];|
+| 4.PyLint/PyLance       | Linter   | [static]; [analyzer];|
 | 5.Pipenv               | Packaging & Virtual Environment Tool| [VirtualEnv]; [Dependency Management];|
 | 6.Pytest/Unit test     | Testing framework| [Test]; [Test Cases];|
 | 7.Docker               | Virtualization Deployment of software in Containers | [Virtualization];|
