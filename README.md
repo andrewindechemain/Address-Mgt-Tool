@@ -33,37 +33,45 @@ Align main heading to the center of the page
 <p>To get a copy of the project up and running on your local machine for development and testing purposes.</p> 
 <ul>
 <li>Clone and start the Django Application in a Dockerized container</li>
+                                    or
 <li>Clone and set up the Django Application in a virtual environment </li>
 </ul>
 
 ## <h3>Starting Project in a Dockerized Environment</h3>
-  <b>Docker</b>
-      1. Install docker to create a virtualized container that will be used to run the python app
-       Run docker using: <b>docker compose up [OPTIONS] [SERVICE...]</b>
+<p>Use https://docs.docker.com/engine/install/ubuntu/ for instructions on installing and configuring docker.</p>
+    1. Install docker to create a virtualized container that will be used to run the python app
+    2.Run docker using: <b>docker compose up [OPTIONS] [SERVICE...]</b>
 
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
-## <p>1.Clone Project from GIT Repository.</p>
-<b><p>HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p></b>
-
+<p>1.Clone Project from GIT Repository.</p>
+  1.HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
+  2. SSH: 
+  <ul>
+  <li>Generate an SSH key pair on your machine, if you don’t have one already. You can use the command ssh-keygen -t rsa -b 4096 -C "your_email@example.com" and follow the prompts. You can also refer to this guide1 for more details.</li>
+  <li>Copy the public key to your clipboard. You can use the command pbcopy < ~/.ssh/id_rsa.pub or cat ~/.ssh/id_rsa.pub and copy the output manually.</li>
+  <li>Add the SSH key to your Bitbucket account. You can follow this guide2 for the instructions.
+  <li>Change the remote URL of your local repository from HTTPS to SSH. You can use the command git remote set-url origin git@bitbucket.org:syokinet-technical-assessment/ip-address-management-tool.git. You can also verify the change by using git remote -v.</li>
+  </ul>
 ## <p>2.Create a virtual environment for your folder.</p>
 <p>Use the prompt: <b>pipenv shell</b> to start a python Installer Package Environment</p>
 
 <!-- Installation -->
 ## <p>3.Installation</p>
 <b>1.Use Pipenv Install <package> to install individual packages
-  2.else Pipenv Install requirements.txt to install a compilation of packages from a requirements.txt </b>
+                                    or
+   2.Pipenv Install requirements.txt to install a compilation of packages from a requirements.txt </b>
 
  <!-- Create .env --> 
  ## <p>4.Create an .env file</p>
     <b>1.Create an .env file on the root so as to store critical user and database information.
-       2.add environment variables.
+       2.Add environment variables. for <b>1.Name</b> <b>2.User</b> <b>3.Password</b> <b>4.Host</b> <b>5.Port</b>
        3.Add the .env file to .gitignore.
        4.Use env.example to configure your env variables</b>
 <!-- Run Locally -->
-## <p> Running Locally</p>
+## <p> Running MySQL Locally</p>
    <b>MySQL</b>
-      1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install 
+      1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:
       (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
