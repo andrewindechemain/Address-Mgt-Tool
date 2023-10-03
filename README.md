@@ -44,7 +44,7 @@ Align main heading to the center of the page
 
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
-<p><b>1.Clone Project from GIT Repository.</b></p>
+<p><b>1.Clone the Project from GIT Repository.</b></p>
   1.HTTPS cloning: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
   2.SSH cloning: 
   <ul>
@@ -54,11 +54,11 @@ Align main heading to the center of the page
   <li>Change the remote URL of your local repository from HTTPS to SSH. You can use the command git remote set-url origin git@bitbucket.org:syokinet-technical-assessment/ip-address-management-tool.git. You can also verify the change by using git remote -v.</li>
   </ul>
 
-## <p>2.Create a virtual environment for your folder.</p>
+## <p><b>2.Create a virtual environment for your folder.</b></p>
 <p>Use the prompt: <b>pipenv shell</b> to start a python Installer Package Environment</p>
 
 <!-- Installation -->
-## <p>3.Installation</p>
+## <p><b>3.Installation</b></p>
 <ol>
   <li>Use Pipenv Install <package> to install individual packages</li>
                                     or
@@ -73,22 +73,22 @@ Align main heading to the center of the page
        <li>Use env.example to configure your env variables</li>
        </ol>
 <!-- Run Locally -->
-<p> Running MySQL Locally</p>
+<p><b>Running MySQL Locally</b></p>
       1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:
       (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
-<p>Use the command below to navigate to the project folder in terminal</p>
+<p>Use the command below to navigate to the project folder in terminal:</p>
   1.cd ipmgt
 <!-- Running Tests on the Application -->
 <h2>Running Tests</h2>
-<p>Use the commands below to carry out test on the models and app functionality.</p>
+<p>Use the commands below to carry out test on the models and app functionality.:</p>
   1. pytest
   2. python3 manage.py test
 
 <!-- Linting the Application -->
 <h2>Linting the App</h2>
-<p>Use the command below to Lint the python syntax for typographical errors.</p>
+<p>Use the command below to Lint the python syntax for typographical errors.:</p>
  1.pylint pylint_example.py.
 <br>
 
