@@ -75,8 +75,11 @@ Align main heading to the center of the page
 <!-- Run Locally -->
 
 ## <h2>Running MySQL Locally</h2>
-      1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:
-      (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
+<ol>
+  <p>Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:,/p>
+  <li> MySql server for configuring server and user/DB variables</li> and 
+  <li> MySql Workbench to manage database and user.</li>
+  </ol>
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
 <p>Use the command below to navigate to the project folder in terminal:</p>
