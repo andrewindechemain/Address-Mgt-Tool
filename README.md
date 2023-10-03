@@ -54,11 +54,11 @@ Align main heading to the center of the page
   <li>Change the remote URL of your local repository from HTTPS to SSH. You can use the command git remote set-url origin git@bitbucket.org:syokinet-technical-assessment/ip-address-management-tool.git. You can also verify the change by using git remote -v.</li>
   </ul>
 
-## <p><b>2.Create a virtual environment for your folder.</b></p>
+<p><b>2.Create a virtual environment for your folder.</b></p>
 <p>Use the prompt: <b>pipenv shell</b> to start a python Installer Package Environment</p>
 
 <!-- Installation -->
-## <p><b>3.Installation</b></p>
+<p><b>3.Installation</b></p>
 <ol>
   <li>Use Pipenv Install <package> to install individual packages</li>
                                     or
@@ -75,8 +75,9 @@ Align main heading to the center of the page
 <!-- Run Locally -->
 
 ## <h2>Running MySQL Locally</h2>
+
 <ol>
-  <p>Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:,/p>
+  <p>Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:</p>
   <li> MySql server for configuring server and user/DB variables</li> and 
   <li> MySql Workbench to manage database and user.</li>
   </ol>
