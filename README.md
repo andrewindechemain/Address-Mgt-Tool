@@ -44,50 +44,53 @@ Align main heading to the center of the page
 
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
-<p>1.Clone Project from GIT Repository.</p>
-  1.HTTPS: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
-  2. SSH: 
+<p><b>1.Clone Project from GIT Repository.</b></p>
+  1.HTTPS cloning: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
+  2.SSH cloning: 
   <ul>
   <li>Generate an SSH key pair on your machine, if you don’t have one already. You can use the command ssh-keygen -t rsa -b 4096 -C "your_email@example.com" and follow the prompts. You can also refer to this guide1 for more details.</li>
   <li>Copy the public key to your clipboard. You can use the command pbcopy < ~/.ssh/id_rsa.pub or cat ~/.ssh/id_rsa.pub and copy the output manually.</li>
   <li>Add the SSH key to your Bitbucket account. You can follow this guide2 for the instructions.
   <li>Change the remote URL of your local repository from HTTPS to SSH. You can use the command git remote set-url origin git@bitbucket.org:syokinet-technical-assessment/ip-address-management-tool.git. You can also verify the change by using git remote -v.</li>
   </ul>
+
 ## <p>2.Create a virtual environment for your folder.</p>
 <p>Use the prompt: <b>pipenv shell</b> to start a python Installer Package Environment</p>
 
 <!-- Installation -->
 ## <p>3.Installation</p>
-<b>1.Use Pipenv Install <package> to install individual packages
+<ol>
+  <li>Use Pipenv Install <package> to install individual packages</li>
                                     or
-   2.Pipenv Install requirements.txt to install a compilation of packages from a requirements.txt </b>
-
+  <li>Pipenv Install requirements.txt to install a compilation of packages from a requirements.txt</li>
+</ol>
  <!-- Create .env --> 
- ## <p>4.Create an .env file</p>
-    <b>1.Create an .env file on the root so as to store critical user and database information.
-       2.Add environment variables. for <b>1.Name</b> <b>2.User</b> <b>3.Password</b> <b>4.Host</b> <b>5.Port</b>
-       3.Add the .env file to .gitignore.
-       4.Use env.example to configure your env variables</b>
+ <p><b>4.Create an .env file</b></p>
+      <ol>
+       <li>Create an .env file on the root so as to store critical user and database information.</li>
+       <li>Add environment variables. for 1.Name< <b>2.User 3.Password 4.Host 5.Port</li>
+       <li>Add the .env file to .gitignore.</li>
+       <li>Use env.example to configure your env variables</li>
+       </ol>
 <!-- Run Locally -->
-## <p> Running MySQL Locally</p>
-   <b>MySQL</b>
+<p> Running MySQL Locally</p>
       1. Use MYSQL installer from https://dev.mysql.com/downloads/installer/ to install:
       (a) MySql server for configuring server and user/DB variables and (b) MySql Workbench to manage database and user.
 <!-- Navigating to the project Directory/Folder -->
 <h2>Navigating to the project directory</h2>
-
+<p>Use the command below to navigate to the project folder in terminal</p>
   1.cd ipmgt
 <!-- Running Tests on the Application -->
 <h2>Running Tests</h2>
-  Use the commands below to carry out test on the models and app functionality.
+<p>Use the commands below to carry out test on the models and app functionality.</p>
   1. pytest
   2. python3 manage.py test
 
 <!-- Linting the Application -->
 <h2>Linting the App</h2>
-Us the command below to Lint the python syntax for typographical errors.
+<p>Use the command below to Lint the python syntax for typographical errors.</p>
  1.pylint pylint_example.py.
 <br>
 
 ## <h2>Authors</h2>
-<b>Andrew Indeche - *Final work* </b> 
+<h3><b>Andrew Indeche - *Final work* </b></h3> 
