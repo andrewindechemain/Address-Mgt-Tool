@@ -68,7 +68,7 @@ Align main heading to the center of the page
  <p><b>4.Create an .env file</b></p>
       <ol>
        <li>Create an .env file on the root so as to store critical user and database information.</li>
-       <li>Add environment variables. for 1.Name< <b>2.User 3.Password 4.Host 5.Port</li>
+       <li>Add environment variables. for 1.Name 2.User 3.Password 4.Host 5.Port</li>
        <li>Add the .env file to .gitignore.</li>
        <li>Use env.example to configure your env variables</li>
        </ol>
