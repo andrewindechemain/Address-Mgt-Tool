@@ -1,4 +1,5 @@
 from django.db import models
+import ipaddress
 
 # Create your models here.
 class Users(models.Model):
