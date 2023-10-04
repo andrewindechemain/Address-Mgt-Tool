@@ -91,7 +91,7 @@ def test_is_ip_allocated(ip_addresses):
 def test_get_ip_by_address(ip_addresses):
     # Test the get_ip_by_address function
     ip1, ip2, ip3 = ip_addresses
-    assert get_ip_by_address("192.168.1.10",ip_addresses) == ip1
+    assert get_ip_by_address("192.168.1.10") == ip1
     assert get_ip_by_address("192.168.1.11") == ip2
     assert get_ip_by_address("192.168.1.12") == ip3
     assert get_ip_by_address("192.168.2.20") is None

@@ -5,6 +5,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from .models import Address
 
@@ -30,8 +31,6 @@ def ip_allocation(request,Address):
 
 def release_ip(Address):
     ip = Address.objects.get(ip=Address.IPv4Address(ip))
-    if Address.DoesNotExist:
-        return HttpResponse('No IP has been found', status=404)
     if ip.allocated:
         ip.customer = None
         ip.allocated = False
@@ -42,19 +41,19 @@ def release_ip(Address):
 @require_http_methods(["GET"])
 @login_required
 
-def allocated_ips(Address):
+def allocated_ips(request):
     ips = Address.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
     if ips:
         return JsonResponse(list(ips), safe=False, status=200)
-    return HttpResponse('Invalid request method', status=405)
+    return HttpResponse(request,'Invalid request method', status=405)
 
 @require_http_methods(["GET"])
 @login_required
 
-def available_ips(Address):
+def available_ips(request):
     ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
 
     if ips:
         return JsonResponse(list(ips), safe=False, status=200)
-    return HttpResponse('Invalid request method', status=405)
+    return HttpResponse(request,'Invalid request method', status=405)
         
