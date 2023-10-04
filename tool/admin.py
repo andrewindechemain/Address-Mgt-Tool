@@ -2,11 +2,10 @@
 Learn more from: https://docs.djangoproject.com/en/4.2/ref/django-admin/
 ."""
 from django.contrib import admin
-from .models import Customer, IPAddress
+from .models import Address
 
-
-class IPAddressAdmin(admin.ModelAdmin):
+class AddressAdmin(admin.ModelAdmin):
     list_display = ('ip', 'customer', 'allocated')
     search_fields = ('ip', 'allocated')
 
-admin.site.register(IPAddress,IPAddressAdmin)
+admin.site.register(Address,AddressAdmin)

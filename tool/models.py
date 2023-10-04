@@ -1,5 +1,6 @@
-"""This file contains model that will be used for the DB schema
+"""This file contains model that will be used for the DB 
 ."""
+
 import ipaddress
 from django.db import models
 
@@ -11,7 +12,7 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
-class IPAddress(models.Model):
+class Address(models.Model):
     ip = models.GenericIPAddressField(unique=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     allocated = models.BooleanField(default=False)
@@ -19,7 +20,7 @@ class IPAddress(models.Model):
         return self.ip
 
 #Lists that store available , allocated IP addresses
-ips_available = [IPAddress(ipaddress.IPv4Address("192.168.1." + str(i))) 
+ips_available = [Address(ipaddress.IPv4Address("192.168.1." + str(i))) 
      for i in range(10, 20)]
 ips_allocated = []
 

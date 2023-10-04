@@ -3,7 +3,7 @@
 ."""
 import pytest
 from django.urls import reverse
-from .models import Customer, IPAddress, is_ip_valid, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations
+from .models import Customer, Address, is_ip_valid, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations
 
 # Mark the test functions that need database access
 @pytest.mark.django_db
@@ -20,9 +20,9 @@ def customers():
 def ip_addresses(customers):
     # Create some IP addresses and return them as a list
     andrew, indeche, peter = customers
-    ip1 = IPAddress.objects.create(ip="192.168.1.10", customer=andrew, allocated=True)
-    ip2 = IPAddress.objects.create(ip="192.168.1.11", customer=indeche, allocated=True)
-    ip3 = IPAddress.objects.create(ip="192.168.1.12")
+    ip1 = Address.objects.create(ip="192.168.1.10", customer=andrew, allocated=True)
+    ip2 = Address.objects.create(ip="192.168.1.11", customer=indeche, allocated=True)
+    ip3 = Address.objects.create(ip="192.168.1.12")
     return [ip1, ip2, ip3]
 
 # Write some test functions for the models and helper functions
@@ -40,7 +40,7 @@ def test_customer_email_unique(customers):
         Customer.objects.create(name="David", email="andrew@example.com")
 
 def test_ipaddress_str(ip_addresses):
-    # Test the __str__ method of the IPAddress model
+    # Test the __str__ method of the Address model
     ip1, ip2, ip3 = ip_addresses
     assert str(ip1) == "192.168.1.10"
     assert str(ip2) == "192.168.1.11"
@@ -50,10 +50,10 @@ def test_ipaddress_ip_unique(ip_addresses):
     # Test the ip field of the IPAddress model is unique
     with pytest.raises(Exception):
         # Try to create an IP address with an existing ip
-        IPAddress.objects.create(ip="192.168.1.10")
+        Address.objects.create(ip="192.168.1.10")
 
 def test_ipaddress_customer_on_delete(customers, ip_addresses):
-    # Test the customer field of the IPAddress model is set to null on delete
+    # Test the customer field of the Address model is set to null on delete
     andrew = customers[0]
     ip = ip_addresses[0]
     andrew.delete()
@@ -86,9 +86,9 @@ def test_get_ip_by_address(ip_addresses):
 def test_filter_by_range(ip_addresses):
       # Test the filter_by_range function
       ip1, ip2, ip3 = ip_addresses
-      assert filter_by_range(IPAddress.objects.all(), "192.168.1.10", "192.168.1.12") == [ip1, ip2, ip3]
-      assert filter_by_range(IPAddress.objects.all(), "192.168.1.11", "192.168.1.11") == [ip2]
-      assert filter_by_range(IPAddress.objects.all(), "192.168.2.10", "192.168.2.20") == []
+      assert filter_by_range(Address.objects.all(), "192.168.1.10", "192.168.1.12") == [ip1, ip2, ip3]
+      assert filter_by_range(Address.objects.all(), "192.168.1.11", "192.168.1.11") == [ip2]
+      assert filter_by_range(Address.objects.all(), "192.168.2.10", "192.168.2.20") == []
 
 def test_subnet_calculations():
       # Test the subnet_calculations function

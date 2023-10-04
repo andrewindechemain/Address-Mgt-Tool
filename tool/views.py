@@ -8,7 +8,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse, HttpResponse
-from .models import IPAddress
+from .models import Address
 
 @require_http_methods(["POST"])
 @login_required
@@ -40,8 +40,7 @@ def release_ip(ipAddress):
         ip.allocated = False
         ip.save()
         return HttpResponse('successful release ', status=200)
-    else:
-        return HttpResponse('no IP has been allocated', status=404)
+    return HttpResponse('no IP has been allocated', status=404)
 
 @require_http_methods(["GET"])
 @login_required

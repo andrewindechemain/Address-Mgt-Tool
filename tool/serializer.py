@@ -8,7 +8,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         model=Customer
         fields=["name","email"]
 
-class IPAddressSerializer(serializers.ModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
     class Meta:
-        model=IPAddress
+        model=Address
         fields=["ip","customer","allocated"]
