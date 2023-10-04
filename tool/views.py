@@ -1,59 +1,51 @@
-"""Django configurations for the view of the App
-   It configures Authorization decorators and responses to requests
-."""
 import json
-from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
-from django.views.decorators.http import require_http_methods
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse, HttpResponse
 from .models import Address
 
-@require_http_methods(["POST"])
-@login_required
+class IpAllocationView(APIView):
+    @login_required
+    def post(self, request, Address):
+        data = json.loads(request.body)
+        ip = Address.objects.get(ip=Address.IPv4Address(ip))
 
-def ip_allocation(request,Address):
-    data = json.loads(request.body)
-    ip = Address.objects.get(ip=Address.IPv4Address(ip))
+        if not data.get("name") or not data.get("email"):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        if ip:
+            ip.customer = Address.objects.name
+            ip.allocated = True
+            ip.save()
+            return Response({'ip': ip.ip, 'customer': ip.customer.name, 'email'
+                             : ip.customer.email}, status=status.HTTP_201_CREATED)
+        return Response('No IPs are available', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if not data.get("name") or not data.get("email"):
-        return HttpResponse(status=400)
-    if ip:
-        ip.customer = Address.objects.name
-        ip.allocated = True
-        ip.save()
-        return JsonResponse({'ip': ip.ip, 'customer': ip.customer.name, 'email'
-                             : ip.customer.email}, status=201)
-    return HttpResponse('No IPs are available', status=500)
+class ReleaseIpView(APIView):
+    @login_required
+    def put(self, request, Address):
+        ip = Address.objects.get(ip=Address.IPv4Address(ip))
+        if ip.allocated:
+            ip.customer = None
+            ip.allocated = False
+            ip.save()
+            return Response('successful release ', status=status.HTTP_200_OK)
+        return Response('no IP has been allocated', status=status.HTTP_404_NOT_FOUND)
 
-@require_http_methods(["PUT"])
-@login_required
+class AllocatedIpsView(APIView):
+    @login_required
+    def get(self, request):
+        ips = Address.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
+        if ips:
+            return Response(list(ips), status=status.HTTP_200_OK)
+        return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-def release_ip(Address):
-    ip = Address.objects.get(ip=Address.IPv4Address(ip))
-    if ip.allocated:
-        ip.customer = None
-        ip.allocated = False
-        ip.save()
-        return HttpResponse('successful release ', status=200)
-    return HttpResponse('no IP has been allocated', status=404)
+class AvailableIpsView(APIView):
+    @login_required
+    def get(self, request):
+        ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
 
-@require_http_methods(["GET"])
-@login_required
-
-def allocated_ips(request):
-    ips = Address.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
-    if ips:
-        return JsonResponse(list(ips), safe=False, status=200)
-    return HttpResponse(request,'Invalid request method', status=405)
-
-@require_http_methods(["GET"])
-@login_required
-
-def available_ips(request):
-    ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
-
-    if ips:
-        return JsonResponse(list(ips), safe=False, status=200)
-    return HttpResponse(request,'Invalid request method', status=405)
-        
+        if ips:
+            return Response(list(ips), status=status.HTTP_200_OK)
+        return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
