@@ -102,7 +102,7 @@
  <li>pylint pylint_example.py.</li>
           or
   <li>pylint --load-plugins pylint_django --rcfile *</li>
- </ul>
- 
+ </ol>
+
 ## <h2>Authors</h2>
 <p style="font-size: 2em; font-weight: bold">Andrew Indeche - *Final work*</p> 
