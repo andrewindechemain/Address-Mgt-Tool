@@ -18,8 +18,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('ip/allocate',views.ip_allocation,name="allocate"),
-    path('ip/release/<str:Address>/',views.release_ip,name="release"),
-    path('ip/allocated',views.allocated_ips,name="allocated"),
-    path('ip/available',views.available_ips,name="available"),
+    path('ip/allocate',views.IpAllocationView.as_view(),name="allocate"),
+    path('ip/release/<str:Address>/',views.ReleaseIpView.as_view(),name="release"),
+    path('ip/allocated',views.AllocatedIpsView.as_view(),name="allocated"),
+    path('ip/available',views.AvailableIpsView.as_view(),name="available"),
 ]
