@@ -1,0 +1,29 @@
+[
+    {
+      "model": "auth.user",
+      "pk": 1,
+      "fields": {
+        "username": "testuser",
+        "password": "testpass"
+      }
+    },
+    {
+      "model": "myapp.address",
+      "pk": 1,
+      "fields": {
+        "ip": "192.168.1.10",
+        "customer": null,
+        "allocated": false
+      }
+    },
+    {
+      "model": "myapp.address",
+      "pk": 2,
+      "fields": {
+        "ip": "192.168.1.11",
+        "customer": "Alice",
+        "allocated": true
+      }
+    }
+  ]
+  

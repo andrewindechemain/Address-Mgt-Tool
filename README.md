@@ -21,11 +21,11 @@
 <p>The ReadME documents details about configuring a Python Django Project for an IP Management tool</p>
 
 <!-- Badges -->
-## <h1> Description</h1>
+## <h1><b>Description</b></h1>
 <p>The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict</p>
 
 <!-- Getting Started -->
-## <h2><b>Getting Started</b></h2>
+## <h1><b>Getting Started</b></h1>
 <p>To get a copy of the project up and running on your local machine for development and testing purposes.</p> 
 <ul>
 <li>Clone and start the Django Application in a Dockerized container</li>
@@ -33,12 +33,12 @@
 <li>Clone and set up the Django Application in a virtual environment </li>
 </ul>
 
-## <h3>Starting Project in a Dockerized Environment</h3>
+## <h2>Starting Project in a Dockerized Environment</h2>
 <p>Use https://docs.docker.com/engine/install/ubuntu/ for instructions on installing and configuring docker.</p>
     1. Install docker to create a virtualized container that will be used to run the python app
     2.Run docker using: <b>docker compose up [OPTIONS] [SERVICE...]</b>
 
-## <h3>Starting Project in a Python Virtual Environment</h3>
+## <h2>Starting Project in a Python Virtual Environment</h2>
 
 <p><b>1.Clone the Project from GIT Repository.</b></p>
   1.HTTPS cloning: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
@@ -95,7 +95,8 @@
   <li>for unittests:python3 manage.py test</li>
   </ul>
 <!-- Linting the Application -->
-<h2>Linting the App</h2>
+
+## <h2>Linting the App</h2>
 <p>Use the command below to Lint the python syntax for typographical errors.:</p>
 <ol>
 <li>export DJANGO_SETTINGS_MODULE=address_management.settings</li>
@@ -104,5 +105,5 @@
   <li>pylint --load-plugins pylint_django --rcfile *</li>
  </ol>
 
-## <h2>Authors</h2>
+## <h3>Authors</h3>
 <p style="font-size: 2em; font-weight: bold">Andrew Indeche - *Final work*</p> 

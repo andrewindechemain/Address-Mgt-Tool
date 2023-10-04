@@ -19,7 +19,18 @@ from . import views
 
 urlpatterns = [
     path('ip/allocate',views.ip_allocation,name="allocate"),
-    path('ip/release/{ipAddress}',views.release_ip,name="release"),
+    path('ip/release/<str:Address>/',views.release_ip,name="release"),
     path('ip/allocated',views.allocated_ips,name="allocated"),
     path('ip/available',views.available_ips,name="available"),
+]
+
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('ip_allocation/<str:Address>/', views.ip_allocation, name='ip_allocation'),
+    path('release_ip/<str:Address>/', views.release_ip, name='release_ip'),
+    path('allocated_ips/', views.allocated_ips, name='allocated_ips'),
+    path('available_ips/', views.available_ips, name='available_ips'),
 ]
