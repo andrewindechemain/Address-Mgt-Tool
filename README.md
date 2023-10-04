@@ -91,13 +91,14 @@
 <h2>Running Tests</h2>
 <p>Use the commands below to carry out test on the models and app functionality.:</p>
   <ul>
-  <li>pytest</li>
-  <li>python3 manage.py test</li>
+  <li>for pytest: pytest test_sample.py</li>
+  <li>for unittests:python3 manage.py test</li>
   </ul>
 <!-- Linting the Application -->
 <h2>Linting the App</h2>
 <p>Use the command below to Lint the python syntax for typographical errors.:</p>
-<ul>
+<ol>
+<li>export DJANGO_SETTINGS_MODULE=address_management.settings</li>
  <li>pylint pylint_example.py.</li>
           or
   <li>pylint --load-plugins pylint_django --rcfile *</li>
@@ -105,4 +106,4 @@
 <br>
 
 ## <h2>Authors</h2>
-<p style="background-color: crimson; color: #f1f1f1; font-size: 2em; font-weight: bold">Andrew Indeche - *Final work*</p> 
+<p style="font-size: 2em; font-weight: bold">Andrew Indeche - *Final work*</p> 
