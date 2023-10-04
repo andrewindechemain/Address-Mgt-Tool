@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework_swagger',
     'dj_database_url',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tool'
+    'drf_yasg',
+    'tool',
+    
 ]
 
 MIDDLEWARE = [
