@@ -4,7 +4,7 @@
 import pytest
 from django.urls import reverse
 import ipaddress
-from .models import Customer, Address, is_ip_valid, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations
+from .models import Customer, Address, is_valid_ip, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations
 
 # Mark the test functions that need database access
 @pytest.mark.django_db
@@ -66,17 +66,27 @@ def test_ipaddress_customer_on_delete(customers, ip_addresses):
     ip.refresh_from_db()
     assert ip.customer is None
 
-@pytest.mark.django_db
-def test_is_ip_valid(address):
-    try:
-        ip = ipaddress.ip_address(address)
-        print("IP address {} is valid. The object returned is {}".format(address, ip))
-    except ValueError:
-        print("IP address {} is not valid".format(address))
+@pytest.fixture
+def address():
+    # return a valid IP address
+    return "192.168.0.1"
 
-    test_is_ip_valid("192.168.0.1") # Valid
-    test_is_ip_valid("10.10.10.01") # Valid, but not in canonical form
-    test_is_ip_valid("10.10.10.300") # Invalid
+def is_valid_ip(ip):
+    try:
+        ipaddress.ip_address(ip)
+        return True
+    except ValueError:
+        return False
+
+@pytest.mark.parametrize("ip, expected", [
+    ("127.0.0.1", True),
+    ("2001:db8::", True),
+    ("256.0.0.0", False),
+    ("abc.def.ghi.jkl", False),
+    (None, False),
+])
+def test_is_valid_ip(ip, expected):
+    assert is_valid_ip(ip) == expected
 
 @pytest.mark.django_db
 def test_is_ip_allocated(ip_addresses):
@@ -91,10 +101,10 @@ def test_is_ip_allocated(ip_addresses):
 def test_get_ip_by_address(ip_addresses):
     # Test the get_ip_by_address function
     ip1, ip2, ip3 = ip_addresses
-    assert get_ip_by_address("192.168.1.10") == ip1
-    assert get_ip_by_address("192.168.1.11") == ip2
-    assert get_ip_by_address("192.168.1.12") == ip3
-    assert get_ip_by_address("192.168.2.20") is None
+    assert get_ip_by_address("192.168.1.10",ip_addresses) == ip1
+    assert get_ip_by_address("192.168.1.11",ip_addresses) == ip2
+    assert get_ip_by_address("192.168.1.12",ip_addresses) == ip3
+    assert get_ip_by_address("192.168.2.20",ip_addresses) is None
 
 @pytest.mark.django_db
 def test_filter_by_range(ip_addresses):

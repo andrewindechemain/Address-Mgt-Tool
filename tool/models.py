@@ -24,11 +24,11 @@ ips_available = [Address(ipaddress.IPv4Address("192.168.1." + str(i)))
      for i in range(10, 20)]
 ips_allocated = []
 
-# Helper function that checks whether an ip addreesses are valid
-def is_ip_valid(ip):
+#Helper function that checks whether an ip addreesses are valid
+def is_valid_ip(ip):
     try:
-        ip = ipaddress.IPv4Address(ip)
-        return ip in ipaddress.IPv4Network("192.168.1.0/14")
+        ipaddress.ip_address(ip)
+        return True
     except ValueError:
         return False
 
