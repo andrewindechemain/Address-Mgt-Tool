@@ -37,16 +37,33 @@ def is_ip_allocated(ip):
     return any(ip == ip_object.ip for ip_object in 
                ips_allocated)   
 #Helper function to get IP address object from a list by address
-def get_ip_by_address(ip, ip_list):
-    for ip_object in ip_list:
-        if ip == ip_object.ip:
-            return ip_object
-        return None
+def get_ip_by_address(ip_str, ip_list):
+    # Validate the input arguments
+    if not isinstance(ip_str, str):
+        raise TypeError("ip_str must be a string")
+    if not isinstance(ip_list, list):
+        raise TypeError("ip_list must be a list")
+    # Convert the ip_str to an IP address object
+    try:
+        ip_obj = ipaddress.ip_address(ip_str)
+    except ValueError:
+        raise ValueError("ip_str is not a valid IP address")
+    # Loop through the ip_list and find the matching IP address object
+    for ip in ip_list:
+        # Validate the ip_list elements
+        if not isinstance(ip, ipaddress.IPv4Address) and not isinstance(ip, ipaddress.IPv6Address):
+            raise ValueError("ip_list must contain only IP address objects")
+        # Compare the ip with the ip_obj
+        if ip == ip_obj:
+            return ip
+    # Return None if no match is found
+    return None
+
 #Helper function to filter IPs by range
 def filter_by_range(ip_list, first, last):
     first = ipaddress.IPv4Address(first)
     last = ipaddress.IPv4Address(last)
-    return [ip_object for ip_object in ip_list if first <= ip_object.ip <= last]
+    return [ip_object for ip_object in ip_list if ipaddress.IPv4Address(first) <= ipaddress.ip_address(ip_object.ip) <= ipaddress.IPv4Address(last)]
 
 #Helper function to calculate subnet details from a IP and mask
 def subnet_calculations(ip,mask):

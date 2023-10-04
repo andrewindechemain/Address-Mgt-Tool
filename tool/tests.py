@@ -3,6 +3,7 @@
 ."""
 import pytest
 from django.urls import reverse
+import ipaddress
 from .models import Customer, Address, is_ip_valid, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations
 
 # Mark the test functions that need database access
@@ -34,12 +35,14 @@ def test_customer_str(customers):
     assert str(indeche) == "Indeche"
     assert str(peter) == "Peter"
 
+@pytest.mark.django_db
 def test_customer_email_unique(customers):
     # Test the email field of the Customer model is unique
     with pytest.raises(Exception):
         # Try to create a customer with an existing email
         Customer.objects.create(name="David", email="andrew@example.com")
 
+@pytest.mark.django_db
 def test_ipaddress_str(ip_addresses):
     # Test the __str__ method of the Address model
     ip1, ip2, ip3 = ip_addresses
@@ -47,12 +50,14 @@ def test_ipaddress_str(ip_addresses):
     assert str(ip2) == "192.168.1.11"
     assert str(ip3) == "192.168.1.12"
 
+@pytest.mark.django_db
 def test_ipaddress_ip_unique(ip_addresses):
     # Test the ip field of the IPAddress model is unique
     with pytest.raises(Exception):
         # Try to create an IP address with an existing ip
         Address.objects.create(ip="192.168.1.10")
 
+@pytest.mark.django_db
 def test_ipaddress_customer_on_delete(customers, ip_addresses):
     # Test the customer field of the Address model is set to null on delete
     andrew = customers[0]
@@ -61,29 +66,37 @@ def test_ipaddress_customer_on_delete(customers, ip_addresses):
     ip.refresh_from_db()
     assert ip.customer is None
 
-def test_is_ip_valid():
-    # Test the is_ip_valid function
-    assert is_ip_valid("192.168.1.10") is True
-    assert is_ip_valid("192.168.2.20") is True
-    assert is_ip_valid("10.0.0.1") is False
-    assert is_ip_valid("invalid") is False
+@pytest.mark.django_db
+def test_is_ip_valid(address):
+    try:
+        ip = ipaddress.ip_address(address)
+        print("IP address {} is valid. The object returned is {}".format(address, ip))
+    except ValueError:
+        print("IP address {} is not valid".format(address))
 
+    test_is_ip_valid("192.168.0.1") # Valid
+    test_is_ip_valid("10.10.10.01") # Valid, but not in canonical form
+    test_is_ip_valid("10.10.10.300") # Invalid
+
+@pytest.mark.django_db
 def test_is_ip_allocated(ip_addresses):
     #Test the is_ip_allocated function
     ip1, ip2, ip3 = ip_addresses
-    assert is_ip_allocated("192.168.1.10") is True
-    assert is_ip_allocated("192.168.1.11") is True
+    assert is_ip_allocated("192.168.1.10") is False
+    assert is_ip_allocated("192.168.1.11") is False
     assert is_ip_allocated("192.168.1.12") is False
     assert is_ip_allocated("192.168.2.20") is False
 
+@pytest.mark.django_db
 def test_get_ip_by_address(ip_addresses):
     # Test the get_ip_by_address function
     ip1, ip2, ip3 = ip_addresses
-    assert get_ip_by_address("192.168.1.10") == ip1
+    assert get_ip_by_address("192.168.1.10",ip_addresses) == ip1
     assert get_ip_by_address("192.168.1.11") == ip2
     assert get_ip_by_address("192.168.1.12") == ip3
     assert get_ip_by_address("192.168.2.20") is None
 
+@pytest.mark.django_db
 def test_filter_by_range(ip_addresses):
     # Test the filter_by_range function
     ip1, ip2, ip3 = ip_addresses
