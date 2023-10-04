@@ -26,6 +26,7 @@ def ip_addresses(customers):
     return [ip1, ip2, ip3]
 
 # Write some test functions for the models and helper functions
+@pytest.mark.django_db
 def test_customer_str(customers):
     # Test the __str__ method of the Customer model
     andrew, indeche, peter = customers
@@ -68,41 +69,41 @@ def test_is_ip_valid():
     assert is_ip_valid("invalid") is False
 
 def test_is_ip_allocated(ip_addresses):
-     # Test the is_ip_allocated function
-     ip1, ip2, ip3 = ip_addresses
-     assert is_ip_allocated("192.168.1.10") is True
-     assert is_ip_allocated("192.168.1.11") is True
-     assert is_ip_allocated("192.168.1.12") is False
-     assert is_ip_allocated("192.168.2.20") is False
+    #Test the is_ip_allocated function
+    ip1, ip2, ip3 = ip_addresses
+    assert is_ip_allocated("192.168.1.10") is True
+    assert is_ip_allocated("192.168.1.11") is True
+    assert is_ip_allocated("192.168.1.12") is False
+    assert is_ip_allocated("192.168.2.20") is False
 
 def test_get_ip_by_address(ip_addresses):
-     # Test the get_ip_by_address function
-     ip1, ip2, ip3 = ip_addresses
-     assert get_ip_by_address("192.168.1.10") == ip1
-     assert get_ip_by_address("192.168.1.11") == ip2
-     assert get_ip_by_address("192.168.1.12") == ip3
-     assert get_ip_by_address("192.168.2.20") is None
+    # Test the get_ip_by_address function
+    ip1, ip2, ip3 = ip_addresses
+    assert get_ip_by_address("192.168.1.10") == ip1
+    assert get_ip_by_address("192.168.1.11") == ip2
+    assert get_ip_by_address("192.168.1.12") == ip3
+    assert get_ip_by_address("192.168.2.20") is None
 
 def test_filter_by_range(ip_addresses):
-      # Test the filter_by_range function
-      ip1, ip2, ip3 = ip_addresses
-      assert filter_by_range(Address.objects.all(), "192.168.1.10", "192.168.1.12") == [ip1, ip2, ip3]
-      assert filter_by_range(Address.objects.all(), "192.168.1.11", "192.168.1.11") == [ip2]
-      assert filter_by_range(Address.objects.all(), "192.168.2.10", "192.168.2.20") == []
+    # Test the filter_by_range function
+    ip1, ip2, ip3 = ip_addresses
+    assert filter_by_range(Address.objects.all(), "192.168.1.10", "192.168.1.12") == [ip1, ip2, ip3]
+    assert filter_by_range(Address.objects.all(), "192.168.1.11", "192.168.1.11") == [ip2]
+    assert filter_by_range(Address.objects.all(), "192.168.2.10", "192.168.2.20") == []
 
 def test_subnet_calculations():
-      # Test the subnet_calculations function
-      assert subnet_calculations("192.168.1.10", 24) == {
-          "network_address": "192.168.1.0",
-          "broadcast_address": "192.168.1.255",
-          "usable_ip_range": "192.168.1.1 - 192.168.1.254",
-          "total_ips": 256,
-          "usable_ips": 254
+    # Test the subnet_calculations function
+    assert subnet_calculations("192.168.1.10", 24) == {
+        "network_address": "192.168.1.0",
+        "broadcast_address": "192.168.1.255",
+        "usable_ip_range": "192.168.1.1 - 192.168.1.254",
+        "total_ips": 256,
+        "usable_ips": 254
       }
-      assert subnet_calculations("192.168.2.20", 28) == {
-          "network_address": "192.168.2.16",
-          "broadcast_address": "192.168.2.31",
-          "usable_ip_range": "192.168.2.17 - 192.168.2.30",
-          "total_ips": 16,
-          "usable_ips": 14
-      }
+    assert subnet_calculations("192.168.2.20", 28) == {
+        "network_address": "192.168.2.16",
+        "broadcast_address": "192.168.2.31",
+        "usable_ip_range": "192.168.2.17 - 192.168.2.30",
+        "total_ips": 16,
+        "usable_ips": 14
+    }
