@@ -1,3 +1,6 @@
+"""Django configurations for the view of the App
+   It configures Authorization decorators and responses to requests
+."""
 import json
 import ipaddress
 from django.contrib.auth.decorators import login_required
@@ -47,9 +50,8 @@ def allocated_ips(IPAddress):
     ips = IPAddress.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
     if ips:
         return JsonResponse(list(ips), safe=False, status=200)
-    else:
-        return HttpResponse('Invalid request method', status=405)
-        
+    return HttpResponse('Invalid request method', status=405)
+
 @require_http_methods(["GET"])
 @login_required
 

@@ -1,3 +1,6 @@
+"""This file contains test cases for the models that have been created
+   Assertions are used to pass or fail the tests 
+."""
 import pytest
 from django.urls import reverse
 from .models import Customer, IPAddress, is_ip_valid, is_ip_allocated, get_ip_by_address, filter_by_range, subnet_calculations

@@ -1,3 +1,5 @@
+"""This file contains model that will be used for the DB schema
+."""
 import ipaddress
 from django.db import models
 
