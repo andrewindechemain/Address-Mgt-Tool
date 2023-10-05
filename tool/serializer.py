@@ -6,9 +6,9 @@ from .models import *
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Customer
-        fields=["name","email"]
+        fields= '__all__'
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model=Address
-        fields=["ip","customer","allocated"]
+        fields= '__all__'
