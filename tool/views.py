@@ -36,7 +36,7 @@ class ReleaseIpView(APIView):
 class AllocatedIpsView(APIView):
     @login_required
     def get(self, request):
-        ips = Address.objects.filter(allocated=True).values('ip', 'customer__name', 'email')
+        ips = Address.objects.filter(allocated=True).values('ip', 'customer', 'allocated')
         if ips:
             return Response(list(ips), status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
