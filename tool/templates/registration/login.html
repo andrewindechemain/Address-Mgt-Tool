@@ -1,5 +1,8 @@
-{% extends 'base.html' %}
+{% load rest_framework %}
 
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
 {% block content %}
 <form method="POST" novalidate>
 	{% csrf_token %}
