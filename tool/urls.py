@@ -20,8 +20,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("login/", auth_views.LoginView.as_view(), name="login"),
-    path('api/ip/allocate',views.IpAllocationView.as_view(),name="allocate"),
-    path('api/ip/release/<str:Address>/',views.ReleaseIpView.as_view(),name="release"),
-    path('api/ip/allocated',views.AllocatedIpsView.as_view(),name="allocated"),
-    path('api/ip/available',views.AvailableIpsView.as_view(),name="available"),
+    path('ip/<int:user_id>/',views.IpAllocationView.as_view(),name="ip"),
+    path('ip/release/<str:Address>/',views.ReleaseIpView.as_view(),name="release"),
+    path('ip/allocated',views.AllocatedIpsView.as_view(),name="allocated"),
+    path('ip/available',views.AvailableIpsView.as_view(),name="available"),
 ]
