@@ -11,13 +11,14 @@ from django.contrib.auth.models import User as AuthUser
 from rest_framework.serializers import ModelSerializer
 from rest_framework.views import APIView
 from .serializers import AddressSerializer,CustomerSerializer
+from drf_yasg.generators import OpenAPISchemaGenerator
 
 
 class IpAllocationSerializer(ModelSerializer):
   class Meta:
     model = Address
     fields = ['ip', 'customer', 'allocated']
-    
+
 class IpAllocationView(APIView):
   serializer_class = IpAllocationSerializer
   def post(self, request, **kwargs):
@@ -72,3 +73,13 @@ class AvailableIpsView(APIView):
             serializer = AddressSerializer(ips, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class CustomSchemaGenerator(OpenAPISchemaGenerator):
+    def get_endpoints(self, request):
+        endpoints = super().get_endpoints(request)
+        filtered_endpoints = {}
+        for path, (method, view) in endpoints.items():
+           if view.has_permission(request):
+                filtered_endpoints[path] = (method, view)
+        return filtered_endpoints
