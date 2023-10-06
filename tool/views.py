@@ -5,33 +5,42 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from .models import Address,Customer
+from rest_framework import serializers
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as AuthUser
+from rest_framework.serializers import ModelSerializer
+from rest_framework.views import APIView
 from .serializers import AddressSerializer,CustomerSerializer
 
+
+class IpAllocationSerializer(ModelSerializer):
+  class Meta:
+    model = Address
+    fields = ['ip', 'customer', 'allocated']
+    
 class IpAllocationView(APIView):
-    serializer_class = CustomerSerializer,AddressSerializer
-
-    @login_required
-    def post(self, request,customer_id):
+  serializer_class = IpAllocationSerializer
+  def post(self, request, **kwargs):
+    customer_id = request.data.get('customer_id')
+    email = kwargs.get('email')
+    name = kwargs.get('name')
+    customer = get_object_or_404(Customer, pk=customer_id, email=email, name=name)    
+    ip = Address.objects.filter(allocated=False).first()
+    if ip:
+      ip.customer = customer
+      ip.allocated = True
+      ip.save()
+      serializer = self.serializer_class(ip)
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response("No IP address available", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-        customer = get_object_or_404(Customer, pk=customer_id)
-    
-        ip = Address.objects.filter(allocated=False).first()
-
-        if ip:
-                ip.customer = customer
-                ip.allocated = True
-                ip.save()   
-                return Response(f"IP address {ip} allocated to customer {customer}",
-                                    status=status.HTTP_201_CREATED)
-        return Response("No IP address available", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+     
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['ip', 'customer', 'allocated']
 
 class ReleaseIpView(APIView):
-    serializer_class = CustomerSerializer,AddressSerializer
-    queryset = Address.objects.all()
-
     @login_required
     def put(self, request): # Add request parameter here
         ip = get_object_or_404(Address, ip=request.query_params.get("ip")) # Use get_object_or_404 and request.query_params instead of get with multiple fields
@@ -40,25 +49,26 @@ class ReleaseIpView(APIView):
             ip.customer = None
             ip.allocated = False
             ip.save()
-            return Response('successful released', list(ip.allocated) , status=status.HTTP_200_OK)
+            # Serialize the updated ip object and return it as a response
+            serializer = AddressSerializer(ip)
+            return Response({'message': 'successful released', 'ip': serializer.data}, status=status.HTTP_200_OK)
         return Response('no IP has been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
-    serializer_class = AddressSerializer
-    queryset = Address.objects.all()
-    
     @login_required
     def get(self, request): 
         ips = Address.objects.filter(allocated=True, customer=request.user).values('ip', 'customer', 'allocated') # Use request.user here
         if ips:
-            return Response(list(ips), status=status.HTTP_200_OK)
+            # Serialize the ips queryset and return it as a response
+            serializer = AddressSerializer(ips, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 class AvailableIpsView(APIView):
-    @login_required
     def get(self, request):
         ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
 
         if ips:
-            return Response(list(ips), status=status.HTTP_200_OK)
+            serializer = AddressSerializer(ips, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
