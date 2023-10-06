@@ -13,20 +13,20 @@ class IpAllocationView(APIView):
     serializer_class = CustomerSerializer,AddressSerializer
 
     @login_required
-    def post(self, request): # Add request parameter here
-        data = request.data # Use request.data instead of json.loads(request.body)
-        ip = Address.objects.filter(allocated=False).first() # Use filter and first instead of get with multiple fields
+    def post(self, request,customer_id):
+    
+        customer = get_object_or_404(Customer, pk=customer_id)
+    
+        ip = Address.objects.filter(allocated=False).first()
 
-        if not data.get("name") or not data.get("email") or not data.get(user):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
         if ip:
-            customer = Customer.objects.create(name=data["name"], email=data["email"], user=request.user) # Create a new customer object with the data and request.user
-            ip.customer = customer # Assign the customer to the ip
-            ip.allocated = True
-            ip.save()
-            return Response({'ip': ip.ip, 'customer': ip.customer.name, 'email'
-                             : ip.customer.email}, status=status.HTTP_201_CREATED)
-        return Response('No IPs are available', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                ip.customer = customer
+                ip.allocated = True
+                ip.save()   
+                return Response(f"IP address {ip} allocated to customer {customer}",
+                                    status=status.HTTP_201_CREATED)
+        return Response("No IP address available", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 
 class ReleaseIpView(APIView):
     serializer_class = CustomerSerializer,AddressSerializer

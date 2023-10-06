@@ -38,6 +38,7 @@ pylint = "*"
 python-decouple = "*"
 pylint-django = "*"
 django-rest-swagger = "*"
+drf-spectacular = "*"
 
 [dev-packages]
 pylint = "*"
