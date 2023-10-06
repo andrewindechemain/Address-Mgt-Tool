@@ -1,39 +1,40 @@
-import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from drf_yasg.utils import swagger_auto_schema
 from .models import Address,Customer
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as AuthUser
-from .serializer import AddressSerializer,CustomerSerializer
+from .serializers import AddressSerializer,CustomerSerializer
 
-class IpAllocationView(LoginRequiredMixin,APIView):
+class IpAllocationView(APIView):
     serializer_class = CustomerSerializer,AddressSerializer
-    queryset = Customer.objects.all()
 
     @login_required
-    def post(self, request, Address):
-        AuthUser = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
-        data = json.loads(request.body)
-        ip = Address.objects.get('ip','customer', 'allocated')
+    def post(self, request): # Add request parameter here
+        data = request.data # Use request.data instead of json.loads(request.body)
+        ip = Address.objects.filter(allocated=False).first() # Use filter and first instead of get with multiple fields
 
         if not data.get("name") or not data.get("email") or not data.get(user):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         if ip:
-            ip.customer = Address.objects.name
+            customer = Customer.objects.create(name=data["name"], email=data["email"], user=request.user) # Create a new customer object with the data and request.user
+            ip.customer = customer # Assign the customer to the ip
             ip.allocated = True
             ip.save()
             return Response({'ip': ip.ip, 'customer': ip.customer.name, 'email'
                              : ip.customer.email}, status=status.HTTP_201_CREATED)
         return Response('No IPs are available', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class ReleaseIpView(LoginRequiredMixin,APIView):
+class ReleaseIpView(APIView):
+    serializer_class = CustomerSerializer,AddressSerializer
+    queryset = Address.objects.all()
+
     @login_required
-    def put(self,Address):
-        ip = Address.objects.get('ip', 'customer', 'allocated')
-        AuthUser = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    def put(self, request): # Add request parameter here
+        ip = get_object_or_404(Address, ip=request.query_params.get("ip")) # Use get_object_or_404 and request.query_params instead of get with multiple fields
 
         if ip.allocated:
             ip.customer = None
@@ -43,10 +44,12 @@ class ReleaseIpView(LoginRequiredMixin,APIView):
         return Response('no IP has been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
+    serializer_class = AddressSerializer
+    queryset = Address.objects.all()
+    
     @login_required
-    def get(self, request):
-        AuthUser = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
-        ips = Address.objects.filter(allocated=True).values('ip', 'customer', 'allocated')
+    def get(self, request): 
+        ips = Address.objects.filter(allocated=True, customer=request.user).values('ip', 'customer', 'allocated') # Use request.user here
         if ips:
             return Response(list(ips), status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -54,7 +57,6 @@ class AllocatedIpsView(APIView):
 class AvailableIpsView(APIView):
     @login_required
     def get(self, request):
-        AuthUser = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
         ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
 
         if ips:
