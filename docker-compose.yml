@@ -1,40 +1,25 @@
-version: 3
+version: '3'
 
 services:
   db:
     image: mysql:8
-
     ports:
       - "3306:3306"
-
     environment:
-      - MYSQL_DATABASE=ipmgdb
-      - MYSQL_USER=ericko
-      - 
-
-MYSQL_PASSWORD=mypassword
-
-MYSQL_ROOT_PASSWORD=rootpassword
-
-volumes:
+      - DJANGO_SECRET_KEY:${SECRET_KEY}
+      - MYSQL_USER:${DB_USER}
+      - NAME:${DB_NAME}
+      - PASSWORD:${DB_USER_PASSWORD}
+      - HOST:${DB_HOST}
+      - PORT:${DB_PORT}
+    volumes:
       - db_data:/var/lib/mysql
-
-  web:
-
-    build: .
-
-    command: django-swagger --host 0.0.0.0 --port 8000 myapp.settings
-
-  ports:
-    - "8000:8000"
-
-
-  volumes:
-  - .:/app
-
-
-  depends_on:
+    depends_on:
       - db
-
-  volumes:
-    db_data:
+  web:
+    build: ./app
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - "8000:8000"
