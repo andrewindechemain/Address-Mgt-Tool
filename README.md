@@ -44,8 +44,11 @@
 </ul>
 ## <h3>Starting Project in a Dockerized Environment</h3>
 <p>Use https://docs.docker.com/engine/install/ubuntu/ for instructions on installing and configuring docker.</p>
-    1. Install docker to create a virtualized container that will be used to run the python app
-    2.Run docker using: <b>docker compose up [OPTIONS] [SERVICE...]</b>
+    1.Install docker to create a virtualized container that will be used to run the python app
+    2.Run the docker deamon service. Open docker app on supported os.
+    3.Building container: docker build -t {app-name} .
+    4.Running the container: docker build -t {app-name} .
+    5.Run docker using: docker login -u username -p password for password protected container
 
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
