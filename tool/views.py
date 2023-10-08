@@ -42,16 +42,14 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ['ip', 'customer', 'allocated']
 
 class ReleaseIpView(APIView):
-    def put(self, request): 
-        ip = get_object_or_404(Address.objects.filter(ip=request.query_params.get("ip")))
+    def put(self, request, ipAddress):
+        ip = get_object_or_404(Address, ip=ipAddress)
         if ip.allocated:
             ip.customer = None
             ip.allocated = False
             ip.save()
-
-            serializer = AddressSerializer(ip)
-            return Response({'message': 'successful released', 'ip': serializer.data}, status=status.HTTP_200_OK)
-        return Response('no IP has been allocated', status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'IP successfully released', 'ip': ip}, status=status.HTTP_200_OK)
+        return Response('No IP has been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
     def get(self, request):

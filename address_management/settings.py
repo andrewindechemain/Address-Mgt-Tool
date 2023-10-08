@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tool',
     'rest_framework_swagger',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
 REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.FormParser',
@@ -68,6 +71,12 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ]
  }
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8888",
+    "https://editor.swagger.io"
+]
+
 ROOT_URLCONF = 'address_management.urls'
 
 TEMPLATES = [
