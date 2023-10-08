@@ -19,12 +19,11 @@ class Address(models.Model):
     def __str__(self):
         return self.ip
 
-#Lists that store available , allocated IP addresses
 ips_available = [Address(ipaddress.IPv4Address("192.168.1." + str(i))) 
      for i in range(10, 20)]
 ips_allocated = []
 
-#Helper function that checks whether an ip addreesses are valid
+
 def is_valid_ip(ip):
     try:
         ipaddress.ip_address(ip)

@@ -39,6 +39,7 @@ python-decouple = "*"
 pylint-django = "*"
 django-rest-swagger = "*"
 drf-spectacular = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 pylint = "*"

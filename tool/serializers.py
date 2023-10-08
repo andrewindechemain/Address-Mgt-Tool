@@ -12,3 +12,14 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model=Address
         fields= '__all__'
+
+class AllocatedIpsSerializer(serializers.ModelSerializer):
+    customer = serializers.StringRelatedField()
+    class Meta:
+        model = Address
+        fields = ['ip', 'customer', 'allocated']
+
+class AvailableIpsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['ip', 'allocated']

@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as AuthUser
 from rest_framework.serializers import ModelSerializer
 from rest_framework.views import APIView
-from .serializers import AddressSerializer,CustomerSerializer
+from .serializers import AddressSerializer,CustomerSerializer,AllocatedIpsSerializer
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 
@@ -42,35 +42,30 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ['ip', 'customer', 'allocated']
 
 class ReleaseIpView(APIView):
-    @login_required
-    def put(self, request): # Add request parameter here
-        ip = get_object_or_404(Address, ip=request.query_params.get("ip")) # Use get_object_or_404 and request.query_params instead of get with multiple fields
-
+    def put(self, request): 
+        ip = get_object_or_404(Address.objects.filter(ip=request.query_params.get("ip")))
         if ip.allocated:
             ip.customer = None
             ip.allocated = False
             ip.save()
-            # Serialize the updated ip object and return it as a response
+
             serializer = AddressSerializer(ip)
             return Response({'message': 'successful released', 'ip': serializer.data}, status=status.HTTP_200_OK)
         return Response('no IP has been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
-    @login_required
-    def get(self, request): 
-        ips = Address.objects.filter(allocated=True, customer=request.user).values('ip', 'customer', 'allocated') # Use request.user here
+    def get(self, request):
+        ips = Address.objects.filter(allocated=True).select_related('customer')
         if ips:
-            # Serialize the ips queryset and return it as a response
-            serializer = AddressSerializer(ips, many=True)
+            serializer = AllocatedIpsSerializer(ips, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
+        return Response('No allocated IPs found.', status=status.HTTP_404_NOT_FOUND)
+    
 class AvailableIpsView(APIView):
     def get(self, request):
-        ips = Address.objects.filter(allocated=False) # remove the values_list method
-
+        ips = Address.objects.filter(allocated=False).values('ip', 'allocated')
         if ips:
-            serializer = AddressSerializer(ips, many=True) # use many=True for multiple objects
+            serializer = AddressSerializer(ips, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
