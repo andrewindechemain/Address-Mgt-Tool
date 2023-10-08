@@ -67,10 +67,10 @@ class AllocatedIpsView(APIView):
 
 class AvailableIpsView(APIView):
     def get(self, request):
-        ips = Address.objects.filter(allocated=False).values_list('ip', flat=True)
+        ips = Address.objects.filter(allocated=False) # remove the values_list method
 
         if ips:
-            serializer = AddressSerializer(ips, many=True)
+            serializer = AddressSerializer(ips, many=True) # use many=True for multiple objects
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
