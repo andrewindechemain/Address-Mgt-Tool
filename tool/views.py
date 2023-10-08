@@ -10,14 +10,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as AuthUser
 from rest_framework.serializers import ModelSerializer
 from rest_framework.views import APIView
-from .serializers import AddressSerializer,CustomerSerializer,AllocatedIpsSerializer
+from .serializers import AddressSerializer,CustomerSerializer,AllocatedIpsSerializer,IpAllocationSerializer
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 
-class IpAllocationSerializer(ModelSerializer):
-  class Meta:
-    model = Address
-    fields = ['ip', 'customer', 'allocated']
 
 class IpAllocationView(APIView):
   serializer_class = IpAllocationSerializer
@@ -35,11 +31,6 @@ class IpAllocationView(APIView):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response("No IP address available", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-     
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ['ip', 'customer', 'allocated']
 
 class ReleaseIpView(APIView):
     def put(self, request, ipAddress):
@@ -66,7 +57,6 @@ class AvailableIpsView(APIView):
             serializer = AddressSerializer(ips, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
 class CustomSchemaGenerator(OpenAPISchemaGenerator):
     def get_endpoints(self, request):

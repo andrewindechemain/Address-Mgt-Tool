@@ -10,8 +10,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Address
-        fields= '__all__'
+        model = Address
+        fields = ['ip', 'customer', 'allocated']
 
 class AllocatedIpsSerializer(serializers.ModelSerializer):
     customer = serializers.StringRelatedField()
@@ -23,3 +23,8 @@ class AvailableIpsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ['ip', 'allocated']
+
+class IpAllocationSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Address
+    fields = ['ip', 'customer', 'allocated']
