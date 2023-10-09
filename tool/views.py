@@ -15,25 +15,28 @@ from drf_yasg.generators import OpenAPISchemaGenerator
 
 
 class IpAllocationView(APIView):
-  def post(self, request,customer,email):
-    customer = request.data.get("customer")
-    email = request.data.get("email")
+    def post(self, request, **kwargs):
+        customer = kwargs.get("customer") 
+        email = kwargs.get("email") 
 
-    if not customer or not email:
-        return Response({"error": "Missing required fields"}, status=status.HTTP_404_NOT_FOUND)
-    customer = Customer.objects.filter(email=email).first()
-    if not customer:
-        customer = Customer( email=email)
-        customer.save()
-    ip = Address.objects.filter(allocated=False).first()
-    if not ip:
-         return Response({"error": "No IPs available"}, status=status.HTTP_500_BAD_REQUEST)
-    ip.customer = customer
-    ip.allocated = True
-    ip.save()
+        if not customer or not email:
+            return Response({"error": "Please enter customer and email"}, status=status.HTTP_404_NOT_FOUND)
+        customer = Customer.objects.filter(email=email).first()
+        if not customer:
+            customer = Customer(email=email)
+            customer.save()
+        existing_ip = Address.objects.filter(customer=customer, allocated=True).first() 
+        if existing_ip:
+            return Response({"error": "Customer already has an allocated IP"}, status=status.HTTP_400_BAD_REQUEST) 
+        ip = Address.objects.filter(allocated=False).first()
+        if not ip:
+            return Response({"error": "No IPs available"}, status=status.HTTP_500_BAD_REQUEST)
+        ip.customer = customer
+        ip.allocated = True
+        ip.save()
 
-    serializer = AddressSerializer(ip)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = AddressSerializer(ip)
+        return Response('Successfully allocated IP',serializer.data, status=status.HTTP_200_OK)
 
 class ReleaseIpView(APIView):
      def put(self, request, ipAddress):
@@ -59,8 +62,8 @@ class AvailableIpsView(APIView):
         ips = Address.objects.filter(allocated=False).values('ip', 'allocated')
         if ips:
             serializer = AddressSerializer(ips, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response('Invalid request method', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response('IPs available',serializer.data, status=status.HTTP_200_OK)
+        return Response('Invalid request', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 class CustomSchemaGenerator(OpenAPISchemaGenerator):
     def get_endpoints(self, request):
