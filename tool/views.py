@@ -36,13 +36,14 @@ class IpAllocationView(APIView):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ReleaseIpView(APIView):
-    def put(self, request, ipAddress):
+     def put(self, request, ipAddress):
         ip = get_object_or_404(Address, ip=ipAddress)
         if ip.allocated:
             ip.customer = None
             ip.allocated = False
             ip.save()
-            return Response({'message': 'IP successfully released', 'ip': ip}, status=status.HTTP_200_OK)
+            serializer = AddressSerializer(ip) 
+            return Response({'message': 'IP successfully released', 'ip': serializer.data}, status=status.HTTP_200_OK) # pass the serializer data here
         return Response('The typed IP has not been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
