@@ -22,7 +22,7 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path('Allocate IP Address/<str:name>/<str:email>/',
           views.IpAllocationView.as_view(), name='allocate'),
-    path('Release IP Address/<str:Address>/',views.ReleaseIpView.as_view(),name="release"),
+    path('Release IP Address/<str:ipAddress>/',views.ReleaseIpView.as_view(),name="release"),
     path('List Allocated IPs',views.AllocatedIpsView.as_view(),name="allocated"),
     path('List Available IPs',views.AvailableIpsView.as_view(),name="available"),
 ]
