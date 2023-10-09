@@ -56,13 +56,13 @@
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
 <p><b>1.Clone the Project from GIT Repository.</b></p>
-  1.HTTPS cloning: git clone https://AndrewIndeche@bitbucket.org/syokinet-technical-assessment/ip-address-management-tool.git</p>
+  1.HTTPS cloning: git clone <repo>
   2.SSH cloning: 
   <ul>
   <li>Generate an SSH key pair on your machine, if you donâ€™t have one already. You can use the command ssh-keygen -t rsa -b 4096 -C "your_email@example.com" and follow the prompts. You can also refer to this guide1 for more details.</li>
   <li>Copy the public key to your clipboard. You can use the command pbcopy < ~/.ssh/id_rsa.pub or cat ~/.ssh/id_rsa.pub and copy the output manually.</li>
   <li>Add the SSH key to your Bitbucket account. You can follow this guide2 for the instructions.
-  <li>Change the remote URL of your local repository from HTTPS to SSH. You can use the command git remote set-url origin git@bitbucket.org:syokinet-technical-assessment/ip-address-management-tool.git. You can also verify the change by using git remote -v.</li>
+  </li>
   </ul>
 
 <p><b>2.Create a virtual environment for your folder.</b></p>
