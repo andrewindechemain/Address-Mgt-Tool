@@ -71,8 +71,8 @@ class AvailableIpsView(APIView):
         ips = Address.objects.filter(allocated=False).values('ip', 'allocated')
         if ips:
             serializer = AddressSerializer(ips, many=True)
-            return Response('IPs available',serializer.data, status=status.HTTP_200_OK)
-        return Response('Invalid request', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response(serializer.data, status=status.HTTP_200_OK) # remove the positional argument here
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED) # remove the positional argument here
 
 class CustomSchemaGenerator(OpenAPISchemaGenerator):
     def get_endpoints(self, request):
