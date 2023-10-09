@@ -19,11 +19,7 @@ from rest_framework.authentication import BasicAuthentication
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 
-@permission_classes([IsAuthenticated]) 
-@authentication_classes([BasicAuthentication]) 
-
 class IpAllocationView(APIView):
-    @login_required 
     def post(self, request, **kwargs):
         customer = kwargs.get("customer") 
         email = kwargs.get("email") 
