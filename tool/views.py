@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import ipaddress
+from ipaddress import IPv4Network
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
@@ -11,10 +13,17 @@ from django.contrib.auth.models import User as AuthUser
 from rest_framework.serializers import ModelSerializer
 from rest_framework.views import APIView
 from .serializers import AddressSerializer,CustomerSerializer,AllocatedIpsSerializer,IpAllocationSerializer
+from rest_framework.decorators import permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import BasicAuthentication
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 
+@permission_classes([IsAuthenticated]) 
+@authentication_classes([BasicAuthentication]) 
+
 class IpAllocationView(APIView):
+    @login_required 
     def post(self, request, **kwargs):
         customer = kwargs.get("customer") 
         email = kwargs.get("email") 
@@ -73,3 +82,21 @@ class CustomSchemaGenerator(OpenAPISchemaGenerator):
            if view.has_permission(request):
                 filtered_endpoints[path] = (method, view)
         return filtered_endpoints
+    
+def subnet_calculations(ip, mask):
+    network = ipaddress.IPv4Network(f"{ip}/{mask}", strict=False)
+    return {
+        "network_address": str(network.network_address),
+        "broadcast_address": str(network.broadcast_address),
+        "usable_ip_range": f"{network[1]} - {network[-2]}",
+        "total_ips": network.num_addresses,
+        "usable_ips": network.num_addresses - 2
+    }
+
+class SubnetCalculatorView(APIView):
+    def get(self, request, ip, mask):
+        try:
+            result = subnet_calculations(ip, mask)
+            return Response(result, status=status.HTTP_200_OK)
+        except ValueError:
+            return Response({"error": "Invalid IP or mask"}, status=status.HTTP_400_BAD_REQUEST)
