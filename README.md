@@ -34,8 +34,9 @@
 </ul>
 
 ## <h2>Swagger End Points</h2>
+<b>NB:USE DJANGO ADMIN TO CREATE IP AND CUSTOMER OBJECTS</b>
 <p>Swagger UI has been used to document the End Points of the Project on a Front End.</p> 
-<p><b> Swager End Points</b></p>
+<p><b> Swagger End Points</b></p>
 <ul>
  <li><p>Allocate IP Address</p><b>POST:</b> /Allocate IP Address/{customer_id}/{email}/{name}/</li>
  <li><p>List Allocated IPs</p><b>GET:</b> /List Allocated IPs></li>

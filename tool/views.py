@@ -14,23 +14,26 @@ from .serializers import AddressSerializer,CustomerSerializer,AllocatedIpsSerial
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 
-
 class IpAllocationView(APIView):
-  serializer_class = IpAllocationSerializer
-  def post(self, request, **kwargs):
-    customer_id = request.data.get('customer_id')
-    email = kwargs.get('email')
-    name = kwargs.get('name')
-    customer = get_object_or_404(Customer, pk=customer_id, email=email, name=name)    
+  def post(self, request,customer,email):
+    customer = request.data.get("customer")
+    email = request.data.get("email")
+
+    if not customer or not email:
+        return Response({"error": "Missing required fields"}, status=status.HTTP_404_NOT_FOUND)
+    customer = Customer.objects.filter(email=email).first()
+    if not customer:
+        customer = Customer( email=email)
+        customer.save()
     ip = Address.objects.filter(allocated=False).first()
-    if ip:
-      ip.customer = customer
-      ip.allocated = True
-      ip.save()
-      serializer = self.serializer_class(ip)
-      return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response("No IP address available", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+    if not ip:
+         return Response({"error": "No IPs available"}, status=status.HTTP_500_BAD_REQUEST)
+    ip.customer = customer
+    ip.allocated = True
+    ip.save()
+
+    serializer = AddressSerializer(ip)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ReleaseIpView(APIView):
     def put(self, request, ipAddress):

@@ -73,7 +73,7 @@ REST_FRAMEWORK = {
  }
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8888",
+    "http://localhost:8000",
     "https://editor.swagger.io"
 ]
 
