@@ -43,7 +43,7 @@ class ReleaseIpView(APIView):
             ip.allocated = False
             ip.save()
             return Response({'message': 'IP successfully released', 'ip': ip}, status=status.HTTP_200_OK)
-        return Response('No IP has been allocated', status=status.HTTP_404_NOT_FOUND)
+        return Response('The typed IP has not been allocated', status=status.HTTP_404_NOT_FOUND)
 
 class AllocatedIpsView(APIView):
     def get(self, request):
