@@ -22,7 +22,7 @@
 
 <!-- Badges -->
 ## <h1> Description</h1>
-<p>The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict</p>
+<p>The Aim of the project is to build a Django REST framework for an IP Management tool that manages and allocates IP Addresses to customers, Tracks unused and used IPs and Ensures proper allocation of IPs without conflict and has a IP subnet calculator tool, which takes an IP and a subnet mask and returns details like the network address, broadcast address, and usable IP range.</p>
 
 <!-- Getting Started -->
 ## <h2><b>Getting Started</b></h2>
@@ -42,6 +42,7 @@
  <li><p>List Allocated IPs</p><b>GET:</b> /List Allocated IPs></li>
  <li><p>List Available IPs</p><b>GET:</b> /List Available IPs</li></li>
  <li><p>Release IP Address</p><b>PUT:</b> /Release IP Address/{Address}/</li></li>
+ <li><p>Subnet Calculator</p><b>PUT:</b> /Subnet Calculator/{ip}/{mask}</li>
 </ul>
 
 ## <h3>Starting Project in a Dockerized Environment</h3>
