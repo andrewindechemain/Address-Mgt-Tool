@@ -16,8 +16,6 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
-from django.contrib.auth import views as auth_views
-from .views import SubnetCalculatorView
 
 urlpatterns = [
     path('Subnet Calculator/<str:ip>/<str:mask>/',views.SubnetCalculatorView.as_view(),name="subnet_calculator"),
