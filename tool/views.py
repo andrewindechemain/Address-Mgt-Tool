@@ -78,7 +78,15 @@ class CustomSchemaGenerator(OpenAPISchemaGenerator):
            if view.has_permission(request):
                 filtered_endpoints[path] = (method, view)
         return filtered_endpoints
-    
+
+class SubnetCalculatorView(APIView):
+    def post(self, request, ip, mask):
+        try:
+            result = subnet_calculations(ip, mask)
+            return Response(result, status=status.HTTP_200_OK)
+        except ValueError:
+            return Response({"error": "Invalid IP or mask"}, status=status.HTTP_400_BAD_REQUEST)
+        
 def subnet_calculations(ip, mask):
     network = ipaddress.IPv4Network(f"{ip}/{mask}", strict=False)
     return {
@@ -88,11 +96,3 @@ def subnet_calculations(ip, mask):
         "total_ips": network.num_addresses,
         "usable_ips": network.num_addresses - 2
     }
-
-class SubnetCalculatorView(APIView):
-    def get(self, request, ip, mask):
-        try:
-            result = subnet_calculations(ip, mask)
-            return Response(result, status=status.HTTP_200_OK)
-        except ValueError:
-            return Response({"error": "Invalid IP or mask"}, status=status.HTTP_400_BAD_REQUEST)

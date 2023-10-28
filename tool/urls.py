@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 from .views import SubnetCalculatorView
 
 urlpatterns = [
-    path('Subnet Calculator/<str:ip>/<int:mask>/', SubnetCalculatorView.as_view(), name='subnet_calculator'),
+    path('Subnet Calculator/<str:ip>/<str:mask>/',views.SubnetCalculatorView.as_view(),name="subnet_calculator"),
     path('Allocate IP Address/Allocate IP Address/<str:customer>/<str:email>/', 
           views.IpAllocationView.as_view(), name='allocate_ip'),
     path('Release IP Address/<str:ipAddress>/',views.ReleaseIpView.as_view(),name="release"),
