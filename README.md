@@ -8,10 +8,9 @@
 | 4.PyLint/PyLance       | Linter   | [static]; [analyzer];|
 | 5.Pipenv               | Packaging & Virtual Environment Tool| [VirtualEnv]; [Dependency Management];|
 | 6.Pytest/Unit test     | Testing framework| [Test]; [Test Cases];|
-| 7.Docker               | Virtualization Deployment of software in Containers | [Virtualization];|
-| 8.MySQL                | Relational Database Management | [Database]; [Relational Database];|
-| 9.Heroku               | Cloud Deployment Platform | [Platform As a Service] ; [Cloud];| 
-| 10.Swagger             | API Design & Documentation | [Open API] ; [Design] ; |
+| 7.MySQL                | Relational Database Management | [Database]; [Relational Database];|
+| 8.Heroku               | Cloud Deployment Platform | [Platform As a Service] ; [Cloud];| 
+| 9.Swagger             | API Design & Documentation | [Open API] ; [Design] ; |
 
 
 <div align="left">
@@ -44,14 +43,6 @@
  <li><p>Release IP Address</p><b>PUT:</b> /Release IP Address/{Address}/</li></li>
  <li><p>Subnet Calculator</p><b>PUT:</b> /Subnet Calculator/{ip}/{mask}</li>
 </ul>
-
-## <h3>Starting Project in a Dockerized Environment</h3>
-<p>Use https://docs.docker.com/engine/install/ubuntu/ for instructions on installing and configuring docker.</p>
-    1.Install docker to create a virtualized container that will be used to run the python app
-    2.Run the docker deamon service. Open docker app on supported os.
-    3.Building container: docker build -t {app-name} .
-    4.Running the container: docker-compose up .
-    5.Run docker using: docker login -u username -p password for password protected container
 
 ## <h3>Starting Project in a Python Virtual Environment</h3>
 
